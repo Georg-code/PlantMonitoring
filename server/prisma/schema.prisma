@@ -1,0 +1,20 @@
+datasource db {
+
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+
+  provider = "prisma-client-js"
+
+}
+
+model Data {
+  id            Int @unique 
+  time          Int
+  sensorID      String
+  HumidityLevel Int
+}
+
+// TODO add autoincrement and stuff

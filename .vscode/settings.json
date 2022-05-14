@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
         "goserial"
-    ]
+    ],
+    "prisma.fileWatcher": true
 }
