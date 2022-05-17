@@ -3,5 +3,5 @@
     "configuration": "cpu=atmega328",
     "board": "arduino:avr:nano",
     "programmer": "arduino:avrisp",
-    "sketch": "Client/Arduino/AnalogDigitalConverter.ino"
+    "sketch": "client/Arduino/AnalogDigitalConverter.ino"
 }

@@ -4,10 +4,18 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/ssimunic/gosensors"
 	"go.bug.st/serial"
 )
 
 func main() {
+	sensors, err := gosensors.NewFromSystem()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(sensors)
+
+	fmt.Printf("Starting")
 	mode := &serial.Mode{
 		BaudRate: 9600,
 	}

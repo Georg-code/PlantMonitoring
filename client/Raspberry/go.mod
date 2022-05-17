@@ -9,5 +9,6 @@ require (
 
 require (
 	github.com/creack/goselect v0.1.2 // indirect
+	github.com/ssimunic/gosensors v0.0.0-20170414000417-e7ab9a4e799b // indirect
 	golang.org/x/sys v0.0.0-20210823070655-63515b42dcdf // indirect
 )

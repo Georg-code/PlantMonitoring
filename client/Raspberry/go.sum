@@ -2,6 +2,8 @@ github.com/creack/goselect v0.1.2 h1:2DNy14+JPjRBgPzAd1thbQp4BSIihxcBf0IXhQXDRa0
 github.com/creack/goselect v0.1.2/go.mod h1:a/NhLweNvqIYMuxcMOuWY516Cimucms3DglDzQP3hKY=
 github.com/huin/goserial v0.0.0-20121012073615-7b90efdb22b1 h1:v6symRpmVeKVUqq1grXnDDtus+lmQufUhgZ/lgMr4nU=
 github.com/huin/goserial v0.0.0-20121012073615-7b90efdb22b1/go.mod h1:x4wgpgRJT44loaDTf8/wWCkvTlhrKlVlaHATk7Leqlw=
+github.com/ssimunic/gosensors v0.0.0-20170414000417-e7ab9a4e799b h1:A0dEqKvhRwdlwU914ZsPns8M+KYbM+VO/mZwQwcX8og=
+github.com/ssimunic/gosensors v0.0.0-20170414000417-e7ab9a4e799b/go.mod h1:COFpNRoa9A4pAl0UtyUp8wuzSxsS0StEQwsmYfYMtbI=
 go.bug.st/serial v1.3.5 h1:k50SqGZCnHZ2MiBQgzccXWG+kd/XpOs1jUljpDDKzaE=
 go.bug.st/serial v1.3.5/go.mod h1:z8CesKorE90Qr/oRSJiEuvzYRKol9r/anJZEb5kt304=
 golang.org/x/sys v0.0.0-20210823070655-63515b42dcdf h1:2ucpDCmfkl8Bd/FsLtiD653Wf96cW37s+iGx93zsu4k=
