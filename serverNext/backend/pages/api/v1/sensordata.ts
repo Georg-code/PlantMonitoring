@@ -16,16 +16,17 @@ export default async function handler(
 
   // I know this is not secure but I don't care
     if (req.headers['x-auth'] == process.env.APIKEY) {
+       console.log(JSON.parse(req.body))
        
         try {
             const docRef = await addDoc(collection(getFirestore(app), "bioData"), {
               time: Date.now(),
-              level: JSON.parse(req.body)['level'] ?? -1,
+              level: parseInt(JSON.parse(req.body)) ?? null,
             });
             console.log("Document written with ID: ", docRef.id);
           } catch (e) {
             console.error("Error adding document: ", e);
-          }
+          } 
           res.status(200).destroy()
     } else {
         res.status(401).destroy()

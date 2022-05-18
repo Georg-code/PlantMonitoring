@@ -1,8 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
 	"log"
+	"net/http"
 
 	"github.com/ssimunic/gosensors"
 	"go.bug.st/serial"
@@ -39,6 +42,18 @@ func main() {
 			break
 		}
 		fmt.Printf("%v", string(buff[:n]))
-	}
+		m := string(buff[:n])
+		r, w := io.Pipe()
 
+		go func() {
+			json.NewEncoder(w).Encode(m)
+			w.Close()
+		}()
+
+
+		client := &http.Client{}
+		req, _ := http.NewRequest("POST", "http://localhost:3000/api/v1/sensordata", r)
+		req.Header.Add("x-auth", "key")
+		client.Do(req)
+	}
 }
