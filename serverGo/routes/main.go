@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -12,8 +13,9 @@ var (
 
 func Run(port int) {
 	getRoutes()
-
+	fmt.Println("📦 Up and running")
 	router.Run(":" + strconv.Itoa(port))
+
 }
 
 func getRoutes() {
