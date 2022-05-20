@@ -7,16 +7,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/ssimunic/gosensors"
 	"go.bug.st/serial"
 )
 
 func main() {
-	sensors, err := gosensors.NewFromSystem()
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(sensors)
 
 	fmt.Printf("Starting")
 	mode := &serial.Mode{
@@ -50,10 +44,9 @@ func main() {
 			w.Close()
 		}()
 
-
 		client := &http.Client{}
-		req, _ := http.NewRequest("POST", "http://localhost:3000/api/v1/sensordata", r)
-		req.Header.Add("x-auth", "key")
+		req, _ := http.NewRequest("POST", "https://bio.niggli.software/api/v1/sensordata", r)
+		req.Header.Add("x-auth", "Key")
 		client.Do(req)
 	}
 }

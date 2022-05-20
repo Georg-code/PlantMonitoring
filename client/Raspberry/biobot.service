@@ -1,0 +1,16 @@
+[Unit]
+Description=BioBot
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/Desktop/rpclient
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=biobot
+RestartSec=20
+StartLimitBurst=0
+
+[Install]
+WantedBy=multiple-user.target
