@@ -5,6 +5,7 @@ import { app, database } from './firebaseConfig';
 
 
 import sqlite3 from 'sqlite3'
+import { json } from 'body-parser';
 type Data = {
   name: string
 }
@@ -14,6 +15,7 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   console.log("BABA")
+  const parseNum = (str: String) => +str.replace(/[^.\d]/g, '');
 
   // I know this is not secure but I don't care
     if (req.headers['x-auth'] == process.env.APIKEY) {
@@ -22,7 +24,7 @@ export default async function handler(
         try {
             const docRef = await addDoc(collection(getFirestore(app), "bioData"), {
               time: Date.now(),
-              level: parseInt(JSON.parse(req.body)),
+              level: parseNum(req.body.toString()),
             });
             console.log("Document written with ID: ", docRef.id);
           } catch (e) {
