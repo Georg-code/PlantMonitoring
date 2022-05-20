@@ -13,15 +13,16 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  console.log("BABA")
 
   // I know this is not secure but I don't care
     if (req.headers['x-auth'] == process.env.APIKEY) {
-       console.log(JSON.parse(req.body))
+       console.log()
        
         try {
             const docRef = await addDoc(collection(getFirestore(app), "bioData"), {
               time: Date.now(),
-              level: parseInt(JSON.parse(req.body)) ?? null,
+              level: parseInt(JSON.parse(req.body)),
             });
             console.log("Document written with ID: ", docRef.id);
           } catch (e) {
