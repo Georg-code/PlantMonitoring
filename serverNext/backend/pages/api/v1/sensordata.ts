@@ -18,9 +18,7 @@ export default async function handler(
 
   // I know this is not secure but I don't care
     if (req.headers['x-auth'] == process.env.APIKEY) {
-
-       
-       
+      console.log(parseInt(JSON.parse(req.body)))
         try {
             const docRef = await addDoc(collection(getFirestore(app), "bioData"), {
               time: Date.now(),
