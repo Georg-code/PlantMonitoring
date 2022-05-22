@@ -1,18 +1,32 @@
 package main
 
 import (
-	"encoding/json"
+	"context"
 	"fmt"
-	"io"
 	"log"
-	"net/http"
+	"time"
 
+	firebase "firebase.google.com/go"
 	"go.bug.st/serial"
+	"google.golang.org/api/option"
 )
 
 func main() {
 
-	fmt.Printf("Starting")
+	ctx := context.Background()
+	sa := option.WithCredentialsFile("fireroom.json")
+	app, err := firebase.NewApp(ctx, nil, sa)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	client, err := app.Firestore(ctx)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer client.Close()
+
+	fmt.Println("Starting")
 	mode := &serial.Mode{
 		BaudRate: 9600,
 	}
@@ -35,18 +49,14 @@ func main() {
 			fmt.Println("\nEOF")
 			break
 		}
-		fmt.Printf("%v", string(buff[:n]))
-		m := string(buff[:n])
-		r, w := io.Pipe()
 
-		go func() {
-			json.NewEncoder(w).Encode(m)
-			w.Close()
-		}()
-
-		client := &http.Client{}
-		req, _ := http.NewRequest("POST", "https://bio.niggli.software/api/v1/sensordata", r)
-		req.Header.Add("x-auth", "Key")
-		client.Do(req)
+		_, _, err = client.Collection("bioData").Add(ctx, map[string]interface{}{
+			"level": string(buff[:n]),
+			"time":  time.Now().Unix(),
+		})
+		if err != nil {
+			log.Fatalf("Failed adding aturing: %v", err)
+		}
+		fmt.Println("added value to database: " + string(buff[:n]))
 	}
 }
