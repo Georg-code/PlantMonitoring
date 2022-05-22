@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"path/filepath"
 	"time"
 
 	firebase "firebase.google.com/go"
@@ -14,10 +13,8 @@ import (
 
 func main() {
 
-	abs, _ := filepath.Abs("fireroom.json")
-
 	ctx := context.Background()
-	sa := option.WithCredentialsFile(abs)
+	sa := option.WithCredentialsFile("fireroom.json")
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
 		log.Fatalln(err)
