@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"path/filepath"
 	"time"
 
 	firebase "firebase.google.com/go"
@@ -13,8 +14,10 @@ import (
 
 func main() {
 
+	abs, _ := filepath.Abs("fireroom.json")
+
 	ctx := context.Background()
-	sa := option.WithCredentialsFile("fireroom.json")
+	sa := option.WithCredentialsFile(abs)
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
 		log.Fatalln(err)
@@ -38,8 +41,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println("SetMode Done")
 	buff := make([]byte, 100)
 	for {
+		fmt.Println("in Loop")
 		n, err := port.Read(buff)
 		if err != nil {
 			log.Fatal(err)
@@ -49,6 +54,7 @@ func main() {
 			fmt.Println("\nEOF")
 			break
 		}
+		fmt.Println("Mid loop")
 
 		_, _, err = client.Collection("bioData").Add(ctx, map[string]interface{}{
 			"level": string(buff[:n]),
