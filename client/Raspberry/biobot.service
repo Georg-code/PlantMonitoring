@@ -3,6 +3,7 @@ Description=BioBot
 After=network.target
 
 [Service]
+User=root
 Type=simple
 ExecStart=/home/pi/Desktop/rpclient
 Restart=always

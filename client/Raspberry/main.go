@@ -17,11 +17,13 @@ func main() {
 	sa := option.WithCredentialsFile("fireroom.json")
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
+		Log(err.Error())
 		log.Fatalln(err)
 	}
 
 	client, err := app.Firestore(ctx)
 	if err != nil {
+		Log(err.Error())
 		log.Fatalln(err)
 	}
 	defer client.Close()
@@ -32,18 +34,20 @@ func main() {
 	}
 	port, err := serial.Open("/dev/ttyUSB0", mode)
 	if err != nil {
+		Log(err.Error())
 		log.Fatal(err)
 	}
 	err = port.SetMode(mode)
 	if err != nil {
+		Log(err.Error())
 		log.Fatal(err)
 	}
-	fmt.Println("SetMode Done")
 	buff := make([]byte, 100)
 	for {
-		fmt.Println("in Loop")
+
 		n, err := port.Read(buff)
 		if err != nil {
+			Log(err.Error())
 			log.Fatal(err)
 			break
 		}
@@ -51,8 +55,6 @@ func main() {
 			fmt.Println("\nEOF")
 			break
 		}
-		fmt.Println("Mid loop")
-
 		_, _, err = client.Collection("bioData").Add(ctx, map[string]interface{}{
 			"level": string(buff[:n]),
 			"time":  time.Now().Unix(),
@@ -61,5 +63,26 @@ func main() {
 			log.Fatalf("Failed adding aturing: %v", err)
 		}
 		fmt.Println("added value to database: " + string(buff[:n]))
+	}
+}
+
+func Log(message string) {
+	ctx := context.Background()
+	sa := option.WithCredentialsFile("fireroom.json")
+	app, err := firebase.NewApp(ctx, nil, sa)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	client, err := app.Firestore(ctx)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer client.Close()
+	_, _, err = client.Collection("logs").Add(ctx, map[string]interface{}{
+		"log": string(message),
+	})
+	if err != nil {
+		log.Fatalf("Failed adding aturing: %v", err)
 	}
 }
