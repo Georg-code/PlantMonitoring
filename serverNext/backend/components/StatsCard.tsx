@@ -30,6 +30,7 @@ const useStyles = createStyles((theme) => ({
 
 interface StatsCardProps {
   currentValue: number;
+  currentTime: number;
 }
 
 export function StatsCard(props: StatsCardProps) {
@@ -52,7 +53,8 @@ export function StatsCard(props: StatsCardProps) {
         Bodenfeuchtigkeit
       </Text>
       <Text color="dimmed" align="center" size="sm">
-        Sensor im Gewächshaus A
+        Aufgenommen vor {Math.floor((Date.now() /1000 - props.currentTime) / 60)} Minuten
+
       </Text>
 
       <Group position="apart" mt="xs">

@@ -30,11 +30,11 @@ const Home: NextPage = (props) => {
   return (
    <>
    <Group position='center' className={classes.StatsCard}>
-     <StatsCard currentValue={parseNum(JSON.stringify((wdata.waterdata[0].level)))}></StatsCard>
+     <StatsCard currentValue={parseNum(JSON.stringify((wdata.waterdata[0].level)))} currentTime={wdata.waterdata[0].time}></StatsCard>
 
      </Group>
      
-     <DataChart data={wdata.waterdata}></DataChart>
+
      </>
   )
 }
