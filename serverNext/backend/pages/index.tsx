@@ -18,7 +18,7 @@ export const getServerSideProps = async () => {
   const data = await resdata.json();
 
   return {
-    props: { waterdata: resdata },
+    props: { waterdata: data },
   };
 };
 
