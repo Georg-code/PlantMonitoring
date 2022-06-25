@@ -7,7 +7,7 @@ In a biology project for school, we want to keep all factors as constant as poss
 ## Modules
 
 - Client
-    - Raspberry 3 for the Wlan connection and Linux <3
+    - Raspberry 3 for the Wlan connection running Ubuntu
     - Arduino nano v3 to convert analog into digital (Serial)
 - Server
     - Raspberry 4 with NextJs for the API and the Dashboard
